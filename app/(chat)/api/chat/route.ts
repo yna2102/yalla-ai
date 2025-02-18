@@ -48,7 +48,7 @@ export async function POST(request: Request) {
     return new Response('No user message found', { status: 400 });
   }
 
-  // Screen the message first using small model
+  // Check content safety before creating stream
   const screeningResult = await streamText({
     model: myProvider.languageModel('chat-model-small'),
     system: screeningPrompt,
