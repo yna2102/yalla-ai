@@ -61,7 +61,21 @@ export async function POST(request: Request) {
 
   return createDataStreamResponse({
     execute: (dataStream) => {
-      const result = streamText({
+      // Screen the message first
+  const screening = await generateText({
+    model: myProvider.languageModel('chat-model-small'),
+    system: screeningPrompt,
+    prompt: userMessage.content,
+  });
+
+  if (screening.startsWith('UNSAFE')) {
+    return new Response(
+      JSON.stringify({ error: 'This request has been filtered: ' + screening }),
+      { status: 400 }
+    );
+  }
+
+  const result = streamText({
         model: myProvider.languageModel(selectedChatModel),
         system: systemPrompt({ selectedChatModel }),
         messages,
