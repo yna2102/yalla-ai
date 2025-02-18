@@ -60,7 +60,7 @@ export async function POST(request: Request) {
   });
 
   return createDataStreamResponse({
-    execute: (dataStream) => {
+    execute: async (dataStream) => {
       // Screen the message first
       const screening = await generateText({
         model: myProvider.languageModel("chat-model-small"),
