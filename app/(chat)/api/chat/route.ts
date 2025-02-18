@@ -73,7 +73,7 @@ export async function POST(request: Request) {
 
   return createDataStreamResponse({
     execute: async (dataStream) => {
-      const result = streamText({
+      await streamText({ // Modified to await the promise
         model: myProvider.languageModel(selectedChatModel),
         system: systemPrompt({ selectedChatModel }),
         messages,
@@ -126,10 +126,6 @@ export async function POST(request: Request) {
           isEnabled: true,
           functionId: 'stream-text',
         },
-      });
-
-      result.mergeIntoDataStream(dataStream, {
-        sendReasoning: true,
       });
     },
     onError: () => {
