@@ -55,7 +55,7 @@ export async function POST(request: Request) {
     messages: [{ role: 'user', content: userMessage.content }]
   });
 
-  const screening = await screeningResult.finalContent();
+  const screening = await screeningResult.text;
   if (screening.toLowerCase().startsWith('unsafe:')) {
     return new Response('This request cannot be processed for safety reasons', { status: 400 });
   }
