@@ -48,6 +48,18 @@ export async function POST(request: Request) {
     return new Response('No user message found', { status: 400 });
   }
 
+  // Screen the message first using small model
+  const screeningResult = await streamText({
+    model: myProvider.languageModel('chat-model-small'),
+    system: screeningPrompt,
+    messages: [{ role: 'user', content: userMessage.content }]
+  });
+
+  const screening = await screeningResult.finalContent();
+  if (screening.toLowerCase().startsWith('unsafe:')) {
+    return new Response('This request cannot be processed for safety reasons', { status: 400 });
+  }
+
   const chat = await getChatById({ id });
 
   if (!chat) {
