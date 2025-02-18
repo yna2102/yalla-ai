@@ -7,7 +7,7 @@ import {
 
 import { auth } from '@/app/(auth)/auth';
 import { myProvider } from '@/lib/ai/models';
-import { systemPrompt, screeningPrompt } from '@/lib/ai/prompts';
+import { systemPrompt } from '@/lib/ai/prompts';
 import {
   deleteChatById,
   getChatById,
@@ -48,18 +48,6 @@ export async function POST(request: Request) {
     return new Response('No user message found', { status: 400 });
   }
 
-  // Check content safety before creating stream
-  const screeningResult = await streamText({
-    model: myProvider.languageModel('chat-model-small'),
-    system: screeningPrompt,
-    messages: [{ role: 'user', content: userMessage.content }]
-  });
-
-  const screening = await screeningResult.text;
-  if (screening.toLowerCase().startsWith('unsafe:')) {
-    return new Response('This request cannot be processed for safety reasons', { status: 400 });
-  }
-
   const chat = await getChatById({ id });
 
   if (!chat) {
@@ -72,8 +60,8 @@ export async function POST(request: Request) {
   });
 
   return createDataStreamResponse({
-    execute: async (dataStream) => {
-      await streamText({ // Modified to await the promise
+    execute: (dataStream) => {
+      const result = streamText({
         model: myProvider.languageModel(selectedChatModel),
         system: systemPrompt({ selectedChatModel }),
         messages,
@@ -126,6 +114,10 @@ export async function POST(request: Request) {
           isEnabled: true,
           functionId: 'stream-text',
         },
+      });
+
+      result.mergeIntoDataStream(dataStream, {
+        sendReasoning: true,
       });
     },
     onError: () => {
