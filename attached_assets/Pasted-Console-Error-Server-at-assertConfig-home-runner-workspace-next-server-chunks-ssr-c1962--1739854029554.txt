@@ -1,0 +1,29 @@
+Console Error
+
+[ Server ]     at assertConfig (/home/runner/workspace/.next/server/chunks/ssr/c1962_@auth_core_88ba5c._.js:480:16)
+    at Auth (/home/runner/workspace/.next/server/chunks/ssr/c1962_@auth_core_88ba5c._.js:5080:262)
+    at runNextTicks (node:internal/process/task_queues:60:5)
+    at process.processImmediate (node:internal/timers:454:9)
+    at process.callbackTrampoline (node:internal/async_hooks:130:17)
+
+Call Stack
+Auth
+node_modules/.pnpm/@auth+core@0.37.2/node_modules/@auth/core/index.js (72:40)
+Next.js
+createUnhandledError
+node_modules/.pnpm/next@15.0.3-canary.2_@opentelemetry+api@1.9.0_react-dom@19.0.0-rc-45804af1-20241021_react@19._u2czya7jp5qh6owzzbmnspihnq/node_modules/next/src/client/components/react-dev-overlay/internal/helpers/console-error.ts (6:17)
+handleClientError
+node_modules/.pnpm/next@15.0.3-canary.2_@opentelemetry+api@1.9.0_react-dom@19.0.0-rc-45804af1-20241021_react@19._u2czya7jp5qh6owzzbmnspihnq/node_modules/next/src/client/components/react-dev-overlay/internal/helpers/use-error-handler.ts (25:33)
+console.error
+node_modules/.pnpm/next@15.0.3-canary.2_@opentelemetry+api@1.9.0_react-dom@19.0.0-rc-45804af1-20241021_react@19._u2czya7jp5qh6owzzbmnspihnq/node_modules/next/src/client/components/globals/intercept-console-error.ts (38:26)
+Object.error
+node_modules/.pnpm/@auth+core@0.37.2/node_modules/@auth/core/lib/utils/logger.js (20:21)
+Auth
+node_modules/.pnpm/@auth+core@0.37.2/node_modules/@auth/core/index.js (78:16)
+Next.js
+assetPrefix
+node_modules/.pnpm/next@15.0.3-canary.2_@opentelemetry+api@1.9.0_react-dom@19.0.0-rc-45804af1-20241021_react@19._u2czya7jp5qh6owzzbmnspihnq/node_modules/next/src/client/components/app-router.tsx (597:41)
+actionQueue
+node_modules/.pnpm/next@15.0.3-canary.2_@opentelemetry+api@1.9.0_react-dom@19.0.0-rc-45804af1-20241021_react@19._u2czya7jp5qh6owzzbmnspihnq/node_modules/next/src/client/components/app-router.tsx (639:28)
+ServerRoot
+node_modules/.pnpm/next@15.0.3-canary.2_@opentelemetry+api@1.9.0_react-dom@19.0.0-rc-45804af1-20241021_react@19._u2czya7jp5qh6owzzbmnspihnq/node_modules/next/src/client/app-index.tsx (184:5)
